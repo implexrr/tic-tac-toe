@@ -33,7 +33,22 @@ const gameController = (() => {
 
 
 
+// Player factory function
 const Player = (name, symbol) => {
   const {mark} = gameController;
   return {name, symbol, mark};
+}
+
+
+
+function checkDiagonal () {
+
+}
+
+function checkRows () {
+  
+}
+
+function checkColumns () {
+  
 }
