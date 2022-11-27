@@ -16,5 +16,8 @@ const gameBoard = (() => {
   return {gameArray};
 })();
 
-
+const gameController = (() => {
+  const mark = (symbol, x, y) => {gameBoard.gameArray[x][y] = symbol};
+  return {mark};
+})();
 
