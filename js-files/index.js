@@ -29,12 +29,26 @@ const gameBoard = (() => {
 const gameController = (() => {
   // Mark the array corresponding to the tic tac toe board with symbol and check for player win
   const mark = (symbol, x, y) => {
+    if (markPresent(x, y)) {
+      return;
+    }
     gameBoard.gameArray[x][y] = symbol;
     if (checkWin(x, y)) {
       console.log("Win!");
     }
   };
 
+
+
+
+  const markPresent = (x, y) => {
+    if (gameBoard.gameArray[x][y] != "") {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
 
 
