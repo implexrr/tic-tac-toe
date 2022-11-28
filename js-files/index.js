@@ -14,7 +14,7 @@ const gameBoard = (() => {
   // Sub array elements
   for (let i = 0; i < arrSize; i++) {
     for (let j = 0; j < arrSize; j++) {
-      gameArray[i][j] = (i * 3) + j;
+      gameArray[i][j] = "";
     }
   }
 
@@ -27,6 +27,7 @@ const gameBoard = (() => {
 
 // Method for defining gameController object
 const gameController = (() => {
+  // Mark the array corresponding to the tic tac toe board with symbol and check for player win
   const mark = (symbol, x, y) => {
     gameBoard.gameArray[x][y] = symbol;
     if (checkWin(x, y)) {
@@ -37,6 +38,7 @@ const gameController = (() => {
 
 
 
+  // Check if there is a row win
   const checkRow = (x, y) => {
     if (y == gameBoard.gameArrayStart) {
       if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x][y + 1]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x][y + 2])) {
@@ -59,6 +61,7 @@ const gameController = (() => {
 
 
 
+  // Check if there is a column win
   const checkCol = (x, y) => {
     if (x == gameBoard.gameArrayStart) {
       if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 1][y]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 2][y])) {
@@ -78,6 +81,10 @@ const gameController = (() => {
     return false;
   };
 
+
+
+
+  // Check if there is a diagonal win
   const checkDiag = (x, y) => {
     if (x == gameBoard.gameArrayStart && y == gameBoard.gameArrayStart) {
       if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 1][y + 1]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 2][y + 2])) {
@@ -110,13 +117,17 @@ const gameController = (() => {
     return false;
   }
 
+
+
+
+  // Check if a player has won
   const checkWin = (x, y) => {
     if (checkRow(x, y) || checkCol(x, y) || checkDiag(x, y)) {
       return true;
     }
     return false;
   };
-  return {mark, checkRow, checkCol, checkDiag, checkWin};
+  return {mark};
 })();
 
 
