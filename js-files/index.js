@@ -29,10 +29,15 @@ const gameBoard = (() => {
 const gameController = (() => {
   const mark = (symbol, x, y) => {
     gameBoard.gameArray[x][y] = symbol;
-    console.log(checkRow(symbol, x, y));
+    if (checkWin(x, y)) {
+      console.log("Win!");
+    }
   };
-  const hello = () => console.log('hello');
-  const checkRow = (symbol, x, y) => {
+
+
+
+
+  const checkRow = (x, y) => {
     if (y == gameBoard.gameArrayStart) {
       if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x][y + 1]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x][y + 2])) {
         return true;
@@ -50,7 +55,17 @@ const gameController = (() => {
     }
     return false;
   };
-  return {mark, hello, checkRow};
+
+
+
+  
+  const checkWin = (x, y) => {
+    if (checkRow(x, y)) {
+      return true;
+    }
+    return false;
+  };
+  return {mark, checkRow, checkWin};
 })();
 
 
@@ -60,22 +75,4 @@ const gameController = (() => {
 const Player = (name, symbol) => {
   const {mark} = gameController;
   return {name, symbol, mark};
-}
-
-
-
-function checkDiagonal () {
-
-}
-
-function checkRows () {
-  
-}
-
-function checkColumns () {
-  
-}
-
-function checkWin () {
-  (checkDiagonal || checkRows || checkColumns) ? true : false;
 }
