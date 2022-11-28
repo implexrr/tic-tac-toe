@@ -58,14 +58,36 @@ const gameController = (() => {
 
 
 
+
+  const checkCol = (x, y) => {
+    if (x == gameBoard.gameArrayStart) {
+      if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 1][y]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 2][y])) {
+        return true;
+      }
+    }
+    else if (x == gameBoard.gameArrayEnd) {
+      if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x - 1][y]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x - 2][y])) {
+        return true;
+      }
+    }
+    else {
+      if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x - 1][y]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 1][y])) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+
+
   
   const checkWin = (x, y) => {
-    if (checkRow(x, y)) {
+    if (checkRow(x, y) || checkCol(x, y)) {
       return true;
     }
     return false;
   };
-  return {mark, checkRow, checkWin};
+  return {mark, checkRow, checkCol, checkWin};
 })();
 
 
