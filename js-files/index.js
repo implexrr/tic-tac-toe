@@ -4,6 +4,7 @@ const gameBoard = (() => {
   const arrSize = 3;
   const gameArrayStart = 0;
   const gameArrayEnd = 2;
+  const boardDisplay = document.querySelector("#board-display");
 
   // Create initial game array
   // First array row
@@ -17,9 +18,20 @@ const gameBoard = (() => {
       gameArray[i][j] = "";
     }
   }
+  
+
+  const generate = () => {
+    for (let i = 0; i < arrSize; i++) {
+      for (let j = 0; j < arrSize; j++) {
+        const box = document.createElement("div");
+        box.classList.add("box");
+        boardDisplay.append(box);
+      }
+    }
+  }
 
   // Make the following functions/objects public access
-  return {gameArray, gameArrayStart, gameArrayEnd};
+  return {gameArray, gameArrayStart, gameArrayEnd, boardDisplay, generate};
 })();
 
 
@@ -158,4 +170,4 @@ const Player = (name, symbol) => {
 
 
 
-// const p1symbol = document.querySelector('#')
+gameBoard.generate();

@@ -1,0 +1,23 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#board-display {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  border: solid 1px black;
+  height: 300px;
+  width: 300px;
+}
+
+.box {
+  height: 100px;
+  width: 100px;
+  border: solid 1px black;
+}
