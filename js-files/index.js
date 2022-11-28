@@ -78,16 +78,45 @@ const gameController = (() => {
     return false;
   };
 
+  const checkDiag = (x, y) => {
+    if (x == gameBoard.gameArrayStart && y == gameBoard.gameArrayStart) {
+      if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 1][y + 1]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 2][y + 2])) {
+        return true;
+      }
+    }
+    else if (x == gameBoard.gameArrayStart && y == gameBoard.gameArrayEnd) {
+      if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 1][y - 1]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 2][y - 2])) {
+        return true;
+      }
+    }
+    else if (x == gameBoard.gameArrayEnd && y == gameBoard.gameArrayStart) {
+      if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x - 1][y + 1]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x - 2][y + 2])) {
+        return true;
+      }
+    }
+    else if (x == gameBoard.gameArrayEnd && y == gameBoard.gameArrayEnd) {
+      if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x - 1][y - 1]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x - 2][y - 2])) {
+        return true;
+      }
+    }
+    else if ((x == gameBoard.gameArrayStart + 1) && (y == gameBoard.gameArrayStart + 1)) {
+      if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 1][y + 1]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x - 1][y - 1])) {
+        return true;
+      }
+      if ((gameBoard.gameArray[x][y] == gameBoard.gameArray[x + 1][y - 1]) && (gameBoard.gameArray[x][y] == gameBoard.gameArray[x - 1][y + 1])) {
+        return true;
+      }
+    }
+    return false;
+  }
 
-
-  
   const checkWin = (x, y) => {
-    if (checkRow(x, y) || checkCol(x, y)) {
+    if (checkRow(x, y) || checkCol(x, y) || checkDiag(x, y)) {
       return true;
     }
     return false;
   };
-  return {mark, checkRow, checkCol, checkWin};
+  return {mark, checkRow, checkCol, checkDiag, checkWin};
 })();
 
 
