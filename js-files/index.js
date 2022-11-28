@@ -33,6 +33,7 @@ const gameController = (() => {
       return;
     }
     gameBoard.gameArray[x][y] = symbol;
+    
     if (checkWin(x, y)) {
       console.log("Win!");
     }
@@ -41,6 +42,7 @@ const gameController = (() => {
 
 
 
+  // Check if spot on gameArray has already been marked
   const markPresent = (x, y) => {
     if (gameBoard.gameArray[x][y] != "") {
       return true;
@@ -149,6 +151,11 @@ const gameController = (() => {
 
 // Player factory function
 const Player = (name, symbol) => {
-  const {mark} = gameController;
+  const {mark} = gameController.mark;
   return {name, symbol, mark};
 }
+
+
+
+
+// const p1symbol = document.querySelector('#')
