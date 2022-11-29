@@ -4,6 +4,8 @@ const gameBoard = (() => {
   const arrSize = 3;
   const gameArrayStart = 0;
   const gameArrayEnd = 2;
+
+  // Select canvas for board display
   const boardDisplay = document.querySelector("#board-display");
 
   // Create initial game array
@@ -167,6 +169,34 @@ const Player = (name, symbol) => {
   return {name, symbol, mark};
 }
 
+
+
+
+
+
+
+
+// Symbol Selection controls
+const selectionControls = (() => {
+  // Select all possible symbols
+  const symbols = document.querySelectorAll("input[type='radio']");
+
+  // Make sure both players can't have same symbol
+  const deselectOtherSymbol = (e) => {
+    console.log(e.target);
+    for (let i = 0; i < symbols.length; i++) {
+      if (e.target.value == symbols[i].value && e.target.id != symbols[i].id) {
+        symbols[i].checked = false;
+      }
+    }
+  }
+
+  // Add event listeners to all symbol selection options
+  for (let i = 0; i < symbols.length; i++) {
+    symbols[i].addEventListener("click", deselectOtherSymbol)
+  }
+  return {};
+})();
 
 
 
