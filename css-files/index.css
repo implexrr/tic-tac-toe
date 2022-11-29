@@ -8,7 +8,20 @@ body, html {
   box-sizing: border-box;
 }
 
+body {
+  height: 100vh;
+  padding: 30px;
+}
+
+
+#board-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 #board-display {
+  background-color: blue;
   display: grid;
   grid-template-columns: repeat(3, 100px);
   grid-template-rows: repeat(3, 100px);
@@ -21,4 +34,32 @@ body, html {
   height: 100px;
   width: 100px;
   border: solid 1px black;
+}
+
+form {
+  padding-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.player {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  margin-left: 20px;
+}
+
+.player-pair {
+  margin-bottom: 10px;
+  grid-area: 1 / 1 / 2 / 3;
+}
+
+label[for="player1"] {
+  color: blue;
+}
+
+label[for="player2"] {
+  color: red;
 }
