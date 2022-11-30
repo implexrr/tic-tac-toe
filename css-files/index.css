@@ -2,7 +2,10 @@ body, html {
   margin: 0;
   padding: 0;
   font-family: 'Fredericka the Great', cursive;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
+  /* background-image: url(/assets/images/chalkboard.jpeg); */
+  color: rgba(255, 255, 255, 1);
+  background-color: #2f4f4f;
 }
 
 * {
@@ -27,6 +30,7 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
+  display: none;
 }
 
 #board-display {
@@ -53,11 +57,18 @@ form {
   width: 100%;
 }
 
+#players {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
 .player {
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-  margin-left: 20px;
+  margin: 0px 10px;
 }
 
 .player-pair {
@@ -65,10 +76,49 @@ form {
   grid-area: 1 / 1 / 2 / 3;
 }
 
-label[for="player1"] {
-  color: blue;
+button {
+  appearance: none;
+  border: none;
+  background-color: #2f4f4f;
+  color: white;
+  border-radius:  30px;
+  width: min-content;
+  height: 3rem;
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 2rem;
+
 }
 
-label[for="player2"] {
-  color: red;
+
+input {
+  font-family: 'Fredericka the Great', cursive;
+}
+
+input[type="text"] {
+  appearance: none;
+  border: none;
+  background-color: #2f4f4f;
+  border-bottom: solid 2px white;
+  color: white;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}
+
+input[type="radio"] {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-bottom: solid 2px white;
+}
+
+.mark-pair {
+  position: relative;
+}
+
+input[type="radio"]:checked + span:before {
+  position: absolute;
+  content: "✓";
+  left: 10px;
 }

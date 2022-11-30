@@ -172,10 +172,6 @@ const Player = (name, symbol) => {
 
 
 
-
-
-
-
 // Symbol Selection controls
 const selectionControls = (() => {
   // Select all possible symbols

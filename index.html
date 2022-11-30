@@ -15,41 +15,42 @@
   <div id="board-container">
     <div id="board-display"></div>
   </div>
-  <form>
-    <div class="player" id="player-1">
-      <div class="label-input-pair player-pair">
-        <label for="player1">Player 1:</label>
-        <input type="text" id="player1" name="player1" maxlength="40" required>
+  <form autocomplete="off">
+    <div id="players">
+      <div class="player" id="player-1">
+        <div class="label-input-pair player-pair">
+          <label for="player1">Player 1:</label>
+          <input type="text" id="player1" name="player1" maxlength="40" required>
+        </div>
+        <div class="label-input-pair mark-pair">
+          <input type="radio" class="x" id="p1x" name="mark-player1" value="x" required>
+          <span></span>
+          <label for="x">X</label>
+        </div>
+        <div class="label-input-pair mark-pair">
+          <input type="radio" class="o" id="p1o" name="mark-player1" value="o" required>
+          <span></span>
+          <label for="o">O</label>
+        </div>
       </div>
-
-      <div class="label-input-pair mark-pair">
-        <input type="radio" class="x" id="p1x" name="mark-player1" value="x" required>
-        <label for="x">X</label>
+      <div class="player" id="player-2">
+        <div class="label-input-pair player-pair">
+          <label for="player2">Player 2:</label>
+          <input type="text" id="player2" name="player2" maxlength="40" required>
+        </div>
+        <div class="label-input-pair mark-pair">
+          <input type="radio" class="x" id="p2x" name="mark-player2" value="x" required>
+          <span></span>
+          <label for="x">X</label>
+        </div>
+        <div class="label-input-pair mark-pair">
+          <input type="radio" class="o" id="p2o" name="mark-player2" value="o" required>
+          <span></span>
+          <label for="o">O</label>
+        </div>
       </div>
-
-      <div class="label-input-pair mark-pair">
-        <input type="radio" class="o" id="p1o" name="mark-player1" value="o" required>
-        <label for="o">O</label>
-      </div>
-
     </div>
-    <div class="player" id="player-2">
-      <div class="label-input-pair player-pair">
-        <label for="player2">Player 2:</label>
-        <input type="text" id="player2" name="player2" maxlength="40" required>
-      </div>
-
-      <div class="label-input-pair mark-pair">
-        <input type="radio" class="x" id="p2x" name="mark-player2" value="x" required>
-        <label for="x">X</label>
-      </div>
-
-      <div class="label-input-pair mark-pair">
-        <input type="radio" class="o" id="p2o" name="mark-player2" value="o" required>
-        <label for="o">O</label>
-      </div>
-
-    </div>
+    <button id="play">Play</button>
   </form>
 
 
