@@ -176,6 +176,7 @@ const Player = (name, symbol) => {
 const selectionControls = (() => {
   // Select all possible symbols
   const symbols = document.querySelectorAll("input[type='radio']");
+  const form = document.querySelector("form");
 
   // Make sure both players can't have same symbol
   const deselectOtherSymbol = (e) => {
@@ -187,10 +188,23 @@ const selectionControls = (() => {
     }
   }
 
+  // Use user input from form to display blank 3x3 tic tac toe board
+  const initializeBoard = (e) => {
+    e.preventDefault();
+    let container = document.querySelector("#board-container");
+    container.style.display = "flex";
+    form.reset();
+    form.style.display = "none";
+  }
+
   // Add event listeners to all symbol selection options
   for (let i = 0; i < symbols.length; i++) {
     symbols[i].addEventListener("click", deselectOtherSymbol)
   }
+
+  form.addEventListener("submit", initializeBoard);
+
+
   return {symbols};
 })();
 
