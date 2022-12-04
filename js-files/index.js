@@ -34,6 +34,15 @@ const gameBoard = (() => {
     }
   }
 
+
+  const playAgain = () => {
+    selectionControls.container.style.display = "none";
+    selectionControls.form.style.display = "flex";
+  }
+
+  const playAgainButton = document.querySelector("#play-again");
+  playAgainButton.addEventListener("click", playAgain);
+
   // Make the following functions/objects public access
   return {player1, player2, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, generate};
 })();
@@ -219,7 +228,7 @@ const selectionControls = (() => {
   form.addEventListener("submit", initializeBoard);
 
 
-  return {symbols};
+  return {form, container, symbols};
 })();
 
 
