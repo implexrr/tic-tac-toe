@@ -191,7 +191,7 @@ const selectionControls = (() => {
   for (let i = 0; i < symbols.length; i++) {
     symbols[i].addEventListener("click", deselectOtherSymbol)
   }
-  return {};
+  return {symbols};
 })();
 
 
