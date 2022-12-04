@@ -4,6 +4,8 @@ const gameBoard = (() => {
   const arrSize = 3;
   const gameArrayStart = 0;
   const gameArrayEnd = 2;
+  let player1;
+  let player2;
 
   // Select canvas for board display
   const boardDisplay = document.querySelector("#board-display");
@@ -33,7 +35,7 @@ const gameBoard = (() => {
   }
 
   // Make the following functions/objects public access
-  return {gameArray, gameArrayStart, gameArrayEnd, boardDisplay, generate};
+  return {player1, player2, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, generate};
 })();
 
 
@@ -177,29 +179,41 @@ const selectionControls = (() => {
   // Select all possible symbols
   const symbols = document.querySelectorAll("input[type='radio']");
   const form = document.querySelector("form");
+  const container = document.querySelector("#board-container");
 
   // Make sure both players can't have same symbol
   const deselectOtherSymbol = (e) => {
-    console.log(e.target);
     for (let i = 0; i < symbols.length; i++) {
       if (e.target.value == symbols[i].value && e.target.id != symbols[i].id) {
         symbols[i].checked = false;
       }
     }
   }
+  
 
   // Use user input from form to display blank 3x3 tic tac toe board
   const initializeBoard = (e) => {
     e.preventDefault();
-    let container = document.querySelector("#board-container");
     container.style.display = "flex";
+    createPlayerObjects();
     form.reset();
     form.style.display = "none";
   }
 
+  // Use Player factory function to create player object in gameBoard object
+  const createPlayerObjects = () => {
+    const player1Name = document.querySelector("#player1").value;
+    const player2Name = document.querySelector("#player2").value;
+    const player1Mark = document.querySelector("input[name='mark-player1']:checked").value
+    const player2Mark = document.querySelector("input[name='mark-player2']:checked").value
+    gameBoard.player1 = Player(player1Name, player1Mark);
+    gameBoard.player2 = Player(player2Name, player2Mark);
+  }
+
+
   // Add event listeners to all symbol selection options
   for (let i = 0; i < symbols.length; i++) {
-    symbols[i].addEventListener("click", deselectOtherSymbol)
+    symbols[i].addEventListener("click", deselectOtherSymbol);
   }
 
   form.addEventListener("submit", initializeBoard);
@@ -211,3 +225,6 @@ const selectionControls = (() => {
 
 
 gameBoard.generate();
+
+// const markPlayer1 = document.querySelector("input[name='mark-player1']:checked").value;
+// const markPlayer2 = document.querySelector("input[name='mark-player2']:checked").value;
