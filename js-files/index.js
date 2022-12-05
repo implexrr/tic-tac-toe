@@ -295,6 +295,3 @@ const selectionControls = (() => {
 
 
 gameBoard.generate();
-
-// const markPlayer1 = document.querySelector("input[name='mark-player1']:checked").value;
-// const markPlayer2 = document.querySelector("input[name='mark-player2']:checked").value;
