@@ -38,7 +38,8 @@ const gameBoard = (() => {
       console.log(gameArray);
     }
    }
-
+  
+  // Generate board from array;
   const generate = () => {
     for (let i = 0; i < arrSize; i++) {
       for (let j = 0; j < arrSize; j++) {
@@ -56,6 +57,23 @@ const gameBoard = (() => {
   const playAgain = () => {
     selectionControls.container.style.display = "none";
     selectionControls.form.style.display = "flex";
+    resetGameArray();
+    resetBoardDisplay();
+  }
+
+  const resetGameArray = () => {
+    for (let i = 0; i < arrSize; i++) {
+      for (let j = 0; j < arrSize; j++) {
+        gameArray[i][j] = "";
+      }
+    }
+  }
+
+  const resetBoardDisplay = () => {
+    const boxes = document.querySelectorAll(".box");
+    for (let i = 0; i < boxes.length; i++) {
+      boxes[i].textContent = "";
+    }
   }
 
   const playAgainButton = document.querySelector("#play-again");
