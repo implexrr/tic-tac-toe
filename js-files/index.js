@@ -4,9 +4,12 @@ const gameBoard = (() => {
   const arrSize = 3;
   const gameArrayStart = 0;
   const gameArrayEnd = 2;
+  const victoryMessage = document.querySelector("#victory-message");
   let player1;
   let player2;
   let player1Turn = true;
+  let numberOfMarks = 0;
+  const maxMarks = arrSize * arrSize;
 
   // Select canvas for board display
   const boardDisplay = document.querySelector("#board-display");
@@ -25,14 +28,16 @@ const gameBoard = (() => {
   // Proxy function for gameController.mark
   const addMark = (e) => {
     if (e.target.textContent == "") {
-      if (player1Turn) {
+      if (gameBoard.player1Turn) {
         gameController.mark(gameBoard.player1.symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
-        player1Turn = false;
+        gameBoard.player1Turn = false;
+        console.log(gameBoard.player1Turn);
         e.target.textContent = gameBoard.player1.symbol;
       }
       else {
         gameController.mark(gameBoard.player2.symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
-        player1Turn = true;
+        gameBoard.player1Turn = true;
+        console.log(gameBoard.player1Turn);
         e.target.textContent = gameBoard.player2.symbol;
       }
       console.log(gameArray);
@@ -59,6 +64,8 @@ const gameBoard = (() => {
     selectionControls.form.style.display = "flex";
     resetGameArray();
     resetBoardDisplay();
+    gameBoard.numberOfMarks = 0;
+    gameBoard.player1Turn = true;
   }
 
   const resetGameArray = () => {
@@ -74,13 +81,15 @@ const gameBoard = (() => {
     for (let i = 0; i < boxes.length; i++) {
       boxes[i].textContent = "";
     }
+    gameBoard.boardDisplay.style.display = "grid";
+    gameBoard.victoryMessage.style.display = "none";
   }
 
   const playAgainButton = document.querySelector("#play-again");
   playAgainButton.addEventListener("click", playAgain);
 
   // Make the following functions/objects public access
-  return {player1, player2, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, generate};
+  return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate};
 })();
 
 
@@ -93,10 +102,26 @@ const gameController = (() => {
     if (markPresent(x, y)) {
       return;
     }
+    gameBoard.numberOfMarks++;
+
     gameBoard.gameArray[x][y] = symbol;
     
     if (checkWin(x, y)) {
-      console.log("Win!");
+      gameBoard.boardDisplay.style.display = "none";
+      gameBoard.victoryMessage.style.display = "flex";
+      if (gameBoard.player1Turn) {
+        gameBoard.victoryMessage.textContent = `${gameBoard.player1.name} wins!`;
+      }
+      else {
+        gameBoard.victoryMessage.textContent = `${gameBoard.player2.name} wins!`
+      }
+      return;
+    }
+    if (gameBoard.numberOfMarks >= gameBoard.maxMarks) {
+      gameBoard.boardDisplay.style.display = "none";
+      gameBoard.victoryMessage.style.display = "flex";
+      gameBoard.victoryMessage.textContent = `Tie!`;
+      return;
     }
   };
 

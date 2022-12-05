@@ -46,6 +46,13 @@ body {
   width: 300px;
 }
 
+#victory-message {
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  display: none;
+}
+
 #board-container button {
   width: max-content;
   margin-top: 5px;
