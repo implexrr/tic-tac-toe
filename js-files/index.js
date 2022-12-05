@@ -24,17 +24,19 @@ const gameBoard = (() => {
   
   // Proxy function for gameController.mark
   const addMark = (e) => {
-    if (player1Turn) {
-      gameController.mark(gameBoard.player1.symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
-      player1Turn = false;
-      e.target.textContent = gameBoard.player1.symbol;
+    if (e.target.textContent == "") {
+      if (player1Turn) {
+        gameController.mark(gameBoard.player1.symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
+        player1Turn = false;
+        e.target.textContent = gameBoard.player1.symbol;
+      }
+      else {
+        gameController.mark(gameBoard.player2.symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
+        player1Turn = true;
+        e.target.textContent = gameBoard.player2.symbol;
+      }
+      console.log(gameArray);
     }
-    else {
-      gameController.mark(gameBoard.player2.symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
-      player1Turn = true;
-      e.target.textContent = gameBoard.player2.symbol;
-    }
-    console.log(gameArray);
    }
 
   const generate = () => {
