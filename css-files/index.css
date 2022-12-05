@@ -127,7 +127,6 @@ button {
   border: none;
   background-color: #2f4f4f;
   color: white;
-  border-radius:  30px;
   width: min-content;
   height: 3rem;
   font-family: 'Fredericka the Great', cursive;
@@ -173,6 +172,10 @@ button:hover, input[type="radio"]:hover {
 }
 
 button:hover {
-  border: solid 2px white;
+  border: solid 2px rgba(255, 255, 255);
+  border-top: solid 2px transparent;
+  border-left: solid 2px transparent;
+  border-right: solid 2px transparent;
   width: 20%;
 }
+
