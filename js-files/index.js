@@ -31,20 +31,6 @@ const gameBoard = (() => {
     }
   }
   
-  // Proxy function for gameController.mark
-  const markWithPlayerSymbol = (e, player) => {
-    gameController.mark(gameBoard[player].symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
-    gameBoard.player1Turn = !gameBoard.player1Turn;
-    e.target.textContent = gameBoard[player].symbol;
-  }
-
-  // Adds mark based on whose turn it is
-  const addMark = (e) => {
-    if (e.target.textContent == "") {
-      (gameBoard.player1Turn) ? markWithPlayerSymbol(e, "player1") : markWithPlayerSymbol(e, "player2");
-    }
-   }
-  
   // Generate board from array;
   const generate = () => {
     for (let i = 0; i < arrSize; i++) {
@@ -59,8 +45,15 @@ const gameBoard = (() => {
     }
   }
 
-
-  const playAgain = () => {
+  // Adds mark based on whose turn it is
+  const addMark = (e) => {
+    if (e.target.textContent == "") {
+      (gameBoard.player1Turn) ? markWithPlayerSymbol(e, "player1") : markWithPlayerSymbol(e, "player2");
+    }
+   }
+   
+   // Start new game
+   const playAgain = () => {
     displayController.resetFormDisplay("none", "flex");
     displayController.resetBoxes();
     displayController.resetBoardDisplay("grid", "none");
@@ -69,6 +62,18 @@ const gameBoard = (() => {
     gameBoard.player1Turn = true;
   }
 
+  // Add Play Again button and attach event listener to fire playAgain function
+  const playAgainButton = document.querySelector("#play-again");
+  playAgainButton.addEventListener("click", playAgain);
+
+  // Proxy function for gameController.mark
+  const markWithPlayerSymbol = (e, player) => {
+    gameController.mark(gameBoard[player].symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
+    gameBoard.player1Turn = !gameBoard.player1Turn;
+    e.target.textContent = gameBoard[player].symbol;
+  }
+
+  // Reset game array data
   const resetGameArray = () => {
     for (let i = 0; i < arrSize; i++) {
       for (let j = 0; j < arrSize; j++) {
@@ -76,9 +81,6 @@ const gameBoard = (() => {
       }
     }
   }
-
-  const playAgainButton = document.querySelector("#play-again");
-  playAgainButton.addEventListener("click", playAgain);
 
   // Make the following functions/objects public access
   return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate};
