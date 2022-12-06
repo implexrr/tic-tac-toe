@@ -1,18 +1,24 @@
 // Method for defining gameBoard object
 const gameBoard = (() => {
-  // Set array size
+  // Set array size, start, end
   const arrSize = 3;
   const gameArrayStart = 0;
   const gameArrayEnd = 2;
-  const victoryMessage = document.querySelector("#victory-message");
-  let player1;
-  let player2;
-  let player1Turn = true;
+
+  // Set maximum number of marks, initialize counter for marks
   let numberOfMarks = 0;
   const maxMarks = arrSize * arrSize;
 
+  // Create variables for players
+  let player1;
+  let player2;
+  let player1Turn = true;
+
   // Select canvas for board display
   const boardDisplay = document.querySelector("#board-display");
+
+  // Create variable for blank victory message
+  const victoryMessage = document.querySelector("#victory-message");
 
   // Create initial game array
   const gameArray = new Array(arrSize);
@@ -26,21 +32,16 @@ const gameBoard = (() => {
   }
   
   // Proxy function for gameController.mark
+  const markWithPlayerSymbol = (e, player) => {
+    gameController.mark(gameBoard[player].symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
+    gameBoard.player1Turn = !gameBoard.player1Turn;
+    e.target.textContent = gameBoard[player].symbol;
+  }
+
+  // Adds mark based on whose turn it is
   const addMark = (e) => {
     if (e.target.textContent == "") {
-      if (gameBoard.player1Turn) {
-        gameController.mark(gameBoard.player1.symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
-        gameBoard.player1Turn = false;
-        console.log(gameBoard.player1Turn);
-        e.target.textContent = gameBoard.player1.symbol;
-      }
-      else {
-        gameController.mark(gameBoard.player2.symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
-        gameBoard.player1Turn = true;
-        console.log(gameBoard.player1Turn);
-        e.target.textContent = gameBoard.player2.symbol;
-      }
-      console.log(gameArray);
+      (gameBoard.player1Turn) ? markWithPlayerSymbol(e, "player1") : markWithPlayerSymbol(e, "player2");
     }
    }
   
@@ -63,7 +64,8 @@ const gameBoard = (() => {
     selectionControls.container.style.display = "none";
     selectionControls.form.style.display = "flex";
     resetGameArray();
-    resetBoardDisplay();
+    resetBoxes();
+    resetBoardDisplay("grid", "none");
     gameBoard.numberOfMarks = 0;
     gameBoard.player1Turn = true;
   }
@@ -76,21 +78,23 @@ const gameBoard = (() => {
     }
   }
 
-  const resetBoardDisplay = () => {
+  const resetBoardDisplay = (boardDisplayVisibility, victoryMessageVisibility) => {
+    gameBoard.boardDisplay.style.display = boardDisplayVisibility;
+    gameBoard.victoryMessage.style.display = victoryMessageVisibility;
+  }
+
+  const resetBoxes = () => {
     const boxes = document.querySelectorAll(".box");
     for (let i = 0; i < boxes.length; i++) {
       boxes[i].textContent = "";
     }
-
-    gameBoard.boardDisplay.style.display = "grid";
-    gameBoard.victoryMessage.style.display = "none";
   }
 
   const playAgainButton = document.querySelector("#play-again");
   playAgainButton.addEventListener("click", playAgain);
 
   // Make the following functions/objects public access
-  return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate};
+  return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate, resetBoardDisplay};
 })();
 
 
@@ -108,8 +112,7 @@ const gameController = (() => {
     gameBoard.gameArray[x][y] = symbol;
     
     if (checkWin(x, y)) {
-      gameBoard.boardDisplay.style.display = "none";
-      gameBoard.victoryMessage.style.display = "flex";
+      gameBoard.resetBoardDisplay("none", "flex");
       if (gameBoard.player1Turn) {
         gameBoard.victoryMessage.textContent = `${gameBoard.player1.name} wins!`;
       }
@@ -119,8 +122,7 @@ const gameController = (() => {
       return;
     }
     if (gameBoard.numberOfMarks >= gameBoard.maxMarks) {
-      gameBoard.boardDisplay.style.display = "none";
-      gameBoard.victoryMessage.style.display = "flex";
+      gameBoard.resetBoardDisplay("none", "flex");
       gameBoard.victoryMessage.textContent = `Tie!`;
       return;
     }
