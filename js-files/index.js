@@ -20,6 +20,10 @@ const gameBoard = (() => {
   // Create variable for blank victory message
   const victoryMessage = document.querySelector("#victory-message");
 
+  // Add functionality to the play again button
+  const playAgainButton = document.querySelector("#play-again");
+  playAgainButton.addEventListener("click", playAgain);
+
   // Create initial game array
   const gameArray = new Array(arrSize);
   for (let i = 0; i < arrSize; i++) {
@@ -30,21 +34,7 @@ const gameBoard = (() => {
       gameArray[i][j] = "";
     }
   }
-  
-  // Proxy function for gameController.mark
-  const markWithPlayerSymbol = (e, player) => {
-    gameController.mark(gameBoard[player].symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
-    gameBoard.player1Turn = !gameBoard.player1Turn;
-    e.target.textContent = gameBoard[player].symbol;
-  }
 
-  // Adds mark based on whose turn it is
-  const addMark = (e) => {
-    if (e.target.textContent == "") {
-      (gameBoard.player1Turn) ? markWithPlayerSymbol(e, "player1") : markWithPlayerSymbol(e, "player2");
-    }
-   }
-  
   // Generate board from array;
   const generate = () => {
     for (let i = 0; i < arrSize; i++) {
@@ -58,8 +48,15 @@ const gameBoard = (() => {
       }
     }
   }
+  
+  // Adds mark based on whose turn it is
+  const addMark = (e) => {
+    if (e.target.textContent == "") {
+      (gameBoard.player1Turn) ? markWithPlayerSymbol(e, "player1") : markWithPlayerSymbol(e, "player2");
+    }
+   }
 
-
+  // Start new game
   const playAgain = () => {
     displayController.resetFormDisplay("none", "flex");
     displayController.resetBoxes();
@@ -69,6 +66,14 @@ const gameBoard = (() => {
     gameBoard.player1Turn = true;
   }
 
+  // Proxy function for gameController.mark
+  const markWithPlayerSymbol = (e, player) => {
+    gameController.mark(gameBoard[player].symbol, parseInt(e.target.dataset.yCoord), parseInt(e.target.dataset.xCoord));
+    gameBoard.player1Turn = !gameBoard.player1Turn;
+    e.target.textContent = gameBoard[player].symbol;
+  }
+
+  // Reset data associated with game array
   const resetGameArray = () => {
     for (let i = 0; i < arrSize; i++) {
       for (let j = 0; j < arrSize; j++) {
@@ -76,9 +81,6 @@ const gameBoard = (() => {
       }
     }
   }
-
-  const playAgainButton = document.querySelector("#play-again");
-  playAgainButton.addEventListener("click", playAgain);
 
   // Make the following functions/objects public access
   return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate};
