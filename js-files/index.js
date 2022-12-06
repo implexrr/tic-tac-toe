@@ -80,6 +80,13 @@ const gameBoard = (() => {
   return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate};
 })();
 
+
+
+
+
+
+
+
 // Method for defining object that controls displays
 const displayController = (() => {
   // Set visibility for player info form
@@ -104,6 +111,12 @@ const displayController = (() => {
 
   return {setFormDisplay, setBoardDisplay, setBoxes}
 })();
+
+
+
+
+
+
 
 
 // Method for defining gameController object
@@ -224,11 +237,19 @@ const gameController = (() => {
 
 
 
+
+
+
+
 // Player factory function
 const Player = (name, symbol) => {
   const {mark} = gameController.mark;
   return {name, symbol, mark};
 }
+
+
+
+
 
 
 
@@ -273,13 +294,10 @@ const selectionControls = (() => {
   for (let i = 0; i < symbols.length; i++) {
     symbols[i].addEventListener("click", deselectOtherSymbol);
   }
-
   form.addEventListener("submit", initializeBoard);
-
 
   return {form, container, symbols};
 })();
-
 
 
 gameBoard.generate();
