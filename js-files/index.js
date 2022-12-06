@@ -145,7 +145,10 @@ const gameController = (() => {
 
   // Check if a player has won
   const checkWin = (x, y) => {
-    (checkRow(x, y) || checkCol(x, y) || checkDiag(x, y)) ? true : false;
+    if (checkRow(x, y) || checkCol(x, y) || checkDiag(x, y)) {
+      return true;
+    }
+    return false;
   };
 
   // Check if spot on gameArray has already been marked
@@ -197,6 +200,13 @@ const gameController = (() => {
     }
     return false;
   };
+
+
+
+
+
+
+
 
   // Check if there is a diagonal win
   const checkDiag = (x, y) => {
@@ -294,10 +304,11 @@ const selectionControls = (() => {
   for (let i = 0; i < symbols.length; i++) {
     symbols[i].addEventListener("click", deselectOtherSymbol);
   }
+
   form.addEventListener("submit", initializeBoard);
+
 
   return {form, container, symbols};
 })();
-
 
 gameBoard.generate();
