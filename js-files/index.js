@@ -4,22 +4,17 @@ const gameBoard = (() => {
   const arrSize = 3;
   const gameArrayStart = 0;
   const gameArrayEnd = 2;
-
   // Set maximum number of marks, initialize counter for marks
   let numberOfMarks = 0;
   const maxMarks = arrSize * arrSize;
-
   // Create variables for players
   let player1;
   let player2;
   let player1Turn = true;
-
   // Select canvas for board display
   const boardDisplay = document.querySelector("#board-display");
-
   // Create variable for blank victory message
   const victoryMessage = document.querySelector("#victory-message");
-
   // Create initial game array
   const gameArray = new Array(arrSize);
   for (let i = 0; i < arrSize; i++) {
@@ -50,18 +45,17 @@ const gameBoard = (() => {
     if (e.target.textContent == "") {
       (gameBoard.player1Turn) ? markWithPlayerSymbol(e, "player1") : markWithPlayerSymbol(e, "player2");
     }
-   }
+  }
    
-   // Start new game
-   const playAgain = () => {
-    displayController.resetFormDisplay("none", "flex");
-    displayController.resetBoxes();
-    displayController.resetBoardDisplay("grid", "none");
-    resetGameArray();
+  // Start new game
+  const playAgain = () => {
+    displayController.setFormDisplay("none", "flex");
+    displayController.setBoxes();
+    displayController.setBoardDisplay("grid", "none");
+    setGameArray();
     gameBoard.numberOfMarks = 0;
     gameBoard.player1Turn = true;
   }
-
   // Add Play Again button and attach event listener to fire playAgain function
   const playAgainButton = document.querySelector("#play-again");
   playAgainButton.addEventListener("click", playAgain);
@@ -74,7 +68,7 @@ const gameBoard = (() => {
   }
 
   // Reset game array data
-  const resetGameArray = () => {
+  const setGameArray = () => {
     for (let i = 0; i < arrSize; i++) {
       for (let j = 0; j < arrSize; j++) {
         gameArray[i][j] = "";
@@ -86,26 +80,29 @@ const gameBoard = (() => {
   return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate};
 })();
 
-
+// Method for defining object that controls displays
 const displayController = (() => {
-  const resetFormDisplay = (containerDisplayVisibility, formDisplayVisibility) => {
+  // Set visibility for player info form
+  const setFormDisplay = (containerDisplayVisibility, formDisplayVisibility) => {
     selectionControls.container.style.display = containerDisplayVisibility;
     selectionControls.form.style.display = formDisplayVisibility;
   }
 
-  const resetBoardDisplay = (boardDisplayVisibility, victoryMessageVisibility) => {
+  // Set visibility for tic tac toe board
+  const setBoardDisplay = (boardDisplayVisibility, victoryMessageVisibility) => {
     gameBoard.boardDisplay.style.display = boardDisplayVisibility;
     gameBoard.victoryMessage.style.display = victoryMessageVisibility;
   }
 
-  const resetBoxes = () => {
+  // Set contents of tic tac toe quadrants
+  const setBoxes = () => {
     const boxes = document.querySelectorAll(".box");
     for (let i = 0; i < boxes.length; i++) {
       boxes[i].textContent = "";
     }
   }
 
-  return {resetFormDisplay, resetBoardDisplay, resetBoxes}
+  return {setFormDisplay, setBoardDisplay, setBoxes}
 })();
 
 
@@ -113,44 +110,43 @@ const displayController = (() => {
 const gameController = (() => {
   // Mark the array corresponding to the tic tac toe board with symbol and check for player win
   const mark = (symbol, x, y) => {
+    // Check if mark is already there
     if (markPresent(x, y)) {
       return;
     }
-    gameBoard.numberOfMarks++;
-
-    gameBoard.gameArray[x][y] = symbol;
-    
-    if (checkWin(x, y)) {
-      displayController.resetBoardDisplay("none", "flex");
-      if (gameBoard.player1Turn) {
-        gameBoard.victoryMessage.textContent = `${gameBoard.player1.name} wins!`;
-      }
-      else {
-        gameBoard.victoryMessage.textContent = `${gameBoard.player2.name} wins!`
-      }
-      return;
+    else {
+      gameBoard.numberOfMarks++;
+      gameBoard.gameArray[x][y] = symbol;
     }
-    if (gameBoard.numberOfMarks >= gameBoard.maxMarks) {
-      displayController.resetBoardDisplay("none", "flex");
+    
+    // Check if mark results in a win, tie or nothing
+    if (checkWin(x, y)) {
+      displayController.setBoardDisplay("none", "flex");
+      showWinner();
+    }
+    else if (gameBoard.numberOfMarks >= gameBoard.maxMarks) {
+      displayController.setBoardDisplay("none", "flex");
       gameBoard.victoryMessage.textContent = `Tie!`;
-      return;
     }
   };
 
-
-
+  // Check if a player has won
+  const checkWin = (x, y) => {
+    if (checkRow(x, y) || checkCol(x, y) || checkDiag(x, y)) {
+      return true;
+    }
+    return false;
+  };
 
   // Check if spot on gameArray has already been marked
   const markPresent = (x, y) => {
-    if (gameBoard.gameArray[x][y] != "") {
-      return true;
-    }
-    else {
-      return false;
-    }
+    (gameBoard.gameArray[x][y] != "") ? true : false;
   }
 
-
+  // Change victory message based on who won
+  const showWinner = () => {
+    (gameBoard.player1Turn) ? gameBoard.victoryMessage.textContent = `${gameBoard.player1.name} wins!`: gameBoard.victoryMessage.textContent = `${gameBoard.player2.name} wins!`;
+  }
 
   // Check if there is a row win
   const checkRow = (x, y) => {
@@ -172,9 +168,6 @@ const gameController = (() => {
     return false;
   };
 
-
-
-
   // Check if there is a column win
   const checkCol = (x, y) => {
     if (x == gameBoard.gameArrayStart) {
@@ -194,9 +187,6 @@ const gameController = (() => {
     }
     return false;
   };
-
-
-
 
   // Check if there is a diagonal win
   const checkDiag = (x, y) => {
@@ -231,16 +221,6 @@ const gameController = (() => {
     return false;
   }
 
-
-
-
-  // Check if a player has won
-  const checkWin = (x, y) => {
-    if (checkRow(x, y) || checkCol(x, y) || checkDiag(x, y)) {
-      return true;
-    }
-    return false;
-  };
   return {mark};
 })();
 
@@ -276,7 +256,7 @@ const selectionControls = (() => {
   // Use user input from form to display blank 3x3 tic tac toe board
   const initializeBoard = (e) => {
     e.preventDefault();
-    displayController.resetFormDisplay("flex", "none");
+    displayController.setFormDisplay("flex", "none");
     createPlayerObjects();
     form.reset();
   }
