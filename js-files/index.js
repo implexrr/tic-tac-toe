@@ -1,20 +1,38 @@
+// Player factory function
+const Player = (name, symbol) => {
+  const {mark} = gameController.mark;
+  return {name, symbol, mark};
+}
+
+
+
+
+
+
+
+
 // Method for defining gameBoard object
 const gameBoard = (() => {
   // Set array size, start, end
   const arrSize = 3;
   const gameArrayStart = 0;
   const gameArrayEnd = 2;
+
   // Set maximum number of marks, initialize counter for marks
   let numberOfMarks = 0;
   const maxMarks = arrSize * arrSize;
+
   // Create variables for players
   let player1;
   let player2;
   let player1Turn = true;
+
   // Select canvas for board display
   const boardDisplay = document.querySelector("#board-display");
+
   // Create variable for blank victory message
   const victoryMessage = document.querySelector("#victory-message");
+
   // Create initial game array
   const gameArray = new Array(arrSize);
   for (let i = 0; i < arrSize; i++) {
@@ -26,18 +44,23 @@ const gameBoard = (() => {
     }
   }
   
-  // Generate board from array;
+  // Generate board from array
   const generate = () => {
     for (let i = 0; i < arrSize; i++) {
       for (let j = 0; j < arrSize; j++) {
-        const box = document.createElement("div");
-        box.classList.add("box");
-        boardDisplay.append(box);
-        box.dataset.xCoord = j;
-        box.dataset.yCoord = i;
-        box.addEventListener("click", addMark);
+        createBox(i, j);
       }
     }
+  }
+
+  // Create box
+  const createBox = (i, j) => {
+    const box = document.createElement("div");
+    box.classList.add("box");
+    boardDisplay.append(box);
+    box.dataset.xCoord = j;
+    box.dataset.yCoord = i;
+    box.addEventListener("click", addMark);
   }
 
   // Adds mark based on whose turn it is
@@ -56,6 +79,7 @@ const gameBoard = (() => {
     gameBoard.numberOfMarks = 0;
     gameBoard.player1Turn = true;
   }
+
   // Add Play Again button and attach event listener to fire playAgain function
   const playAgainButton = document.querySelector("#play-again");
   playAgainButton.addEventListener("click", playAgain);
@@ -201,13 +225,6 @@ const gameController = (() => {
     return false;
   };
 
-
-
-
-
-
-
-
   // Check if there is a diagonal win
   const checkDiag = (x, y) => {
     if (x == gameBoard.gameArrayStart && y == gameBoard.gameArrayStart) {
@@ -240,22 +257,8 @@ const gameController = (() => {
     }
     return false;
   }
-
   return {mark};
 })();
-
-
-
-
-
-
-
-
-// Player factory function
-const Player = (name, symbol) => {
-  const {mark} = gameController.mark;
-  return {name, symbol, mark};
-}
 
 
 
