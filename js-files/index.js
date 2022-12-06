@@ -61,17 +61,12 @@ const gameBoard = (() => {
 
 
   const playAgain = () => {
-    resetFormDisplay("none", "flex");
+    displayController.resetFormDisplay("none", "flex");
+    displayController.resetBoxes();
+    displayController.resetBoardDisplay("grid", "none");
     resetGameArray();
-    resetBoxes();
-    resetBoardDisplay("grid", "none");
     gameBoard.numberOfMarks = 0;
     gameBoard.player1Turn = true;
-  }
-
-  const resetFormDisplay = (containerDisplayVisibility, formDisplayVisibility) => {
-    selectionControls.container.style.display = containerDisplayVisibility;
-    selectionControls.form.style.display = formDisplayVisibility;
   }
 
   const resetGameArray = () => {
@@ -80,6 +75,20 @@ const gameBoard = (() => {
         gameArray[i][j] = "";
       }
     }
+  }
+
+  const playAgainButton = document.querySelector("#play-again");
+  playAgainButton.addEventListener("click", playAgain);
+
+  // Make the following functions/objects public access
+  return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate};
+})();
+
+
+const displayController = (() => {
+  const resetFormDisplay = (containerDisplayVisibility, formDisplayVisibility) => {
+    selectionControls.container.style.display = containerDisplayVisibility;
+    selectionControls.form.style.display = formDisplayVisibility;
   }
 
   const resetBoardDisplay = (boardDisplayVisibility, victoryMessageVisibility) => {
@@ -94,14 +103,8 @@ const gameBoard = (() => {
     }
   }
 
-  const playAgainButton = document.querySelector("#play-again");
-  playAgainButton.addEventListener("click", playAgain);
-
-  // Make the following functions/objects public access
-  return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate, resetFormDisplay, resetBoardDisplay};
+  return {resetFormDisplay, resetBoardDisplay, resetBoxes}
 })();
-
-
 
 
 // Method for defining gameController object
@@ -116,7 +119,7 @@ const gameController = (() => {
     gameBoard.gameArray[x][y] = symbol;
     
     if (checkWin(x, y)) {
-      gameBoard.resetBoardDisplay("none", "flex");
+      displayController.resetBoardDisplay("none", "flex");
       if (gameBoard.player1Turn) {
         gameBoard.victoryMessage.textContent = `${gameBoard.player1.name} wins!`;
       }
@@ -126,7 +129,7 @@ const gameController = (() => {
       return;
     }
     if (gameBoard.numberOfMarks >= gameBoard.maxMarks) {
-      gameBoard.resetBoardDisplay("none", "flex");
+      displayController.resetBoardDisplay("none", "flex");
       gameBoard.victoryMessage.textContent = `Tie!`;
       return;
     }
@@ -271,7 +274,7 @@ const selectionControls = (() => {
   // Use user input from form to display blank 3x3 tic tac toe board
   const initializeBoard = (e) => {
     e.preventDefault();
-    gameBoard.resetFormDisplay("flex", "none");
+    displayController.resetFormDisplay("flex", "none");
     createPlayerObjects();
     form.reset();
   }
