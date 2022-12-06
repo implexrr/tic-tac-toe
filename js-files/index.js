@@ -81,6 +81,7 @@ const gameBoard = (() => {
     for (let i = 0; i < boxes.length; i++) {
       boxes[i].textContent = "";
     }
+
     gameBoard.boardDisplay.style.display = "grid";
     gameBoard.victoryMessage.style.display = "none";
   }
