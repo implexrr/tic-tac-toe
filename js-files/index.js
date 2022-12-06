@@ -61,13 +61,17 @@ const gameBoard = (() => {
 
 
   const playAgain = () => {
-    selectionControls.container.style.display = "none";
-    selectionControls.form.style.display = "flex";
+    resetFormDisplay("none", "flex");
     resetGameArray();
     resetBoxes();
     resetBoardDisplay("grid", "none");
     gameBoard.numberOfMarks = 0;
     gameBoard.player1Turn = true;
+  }
+
+  const resetFormDisplay = (containerDisplayVisibility, formDisplayVisibility) => {
+    selectionControls.container.style.display = containerDisplayVisibility;
+    selectionControls.form.style.display = formDisplayVisibility;
   }
 
   const resetGameArray = () => {
@@ -94,7 +98,7 @@ const gameBoard = (() => {
   playAgainButton.addEventListener("click", playAgain);
 
   // Make the following functions/objects public access
-  return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate, resetBoardDisplay};
+  return {player1, player2, player1Turn, numberOfMarks, maxMarks, victoryMessage, gameArray, gameArrayStart, gameArrayEnd, boardDisplay, addMark, generate, resetFormDisplay, resetBoardDisplay};
 })();
 
 
@@ -267,10 +271,9 @@ const selectionControls = (() => {
   // Use user input from form to display blank 3x3 tic tac toe board
   const initializeBoard = (e) => {
     e.preventDefault();
-    container.style.display = "flex";
+    gameBoard.resetFormDisplay("flex", "none");
     createPlayerObjects();
     form.reset();
-    form.style.display = "none";
   }
 
   // Use Player factory function to create player object in gameBoard object
