@@ -132,10 +132,7 @@ const gameController = (() => {
 
   // Check if a player has won
   const checkWin = (x, y) => {
-    if (checkRow(x, y) || checkCol(x, y) || checkDiag(x, y)) {
-      return true;
-    }
-    return false;
+    (checkRow(x, y) || checkCol(x, y) || checkDiag(x, y)) ? true : false;
   };
 
   // Check if spot on gameArray has already been marked
