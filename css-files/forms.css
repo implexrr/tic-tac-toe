@@ -1,0 +1,21 @@
+/* RULES FOR FORM ELEMENTS */
+form {
+  padding-top: 3rem;
+  width: 100%;
+}
+
+#players {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.player {
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  margin: 0px 10px;
+}
+
+.player-pair {
+  margin-bottom: 10px;
+  grid-area: 1 / 1 / 2 / 3;
+}

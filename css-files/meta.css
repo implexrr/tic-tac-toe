@@ -1,0 +1,10 @@
+/* CSS METARULES */
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  padding: 30px;
+}

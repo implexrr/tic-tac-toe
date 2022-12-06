@@ -1,0 +1,8 @@
+/* COLOR RULES */
+body, html, button, input[type="text"] {
+  color: rgba(255, 255, 255);
+}
+
+body, html, button, input[type="text"], #board-display {
+  background-color: #2f4f4f;
+}

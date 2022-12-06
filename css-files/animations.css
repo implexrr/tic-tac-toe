@@ -1,0 +1,43 @@
+/* ANIMATION RULES */
+@-webkit-keyframes fadeInMark {
+  0% {
+    color: rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  100% {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+.box:not(:empty) {
+  animation: fadeInMark 0.4s;
+  animation-iteration-count: 1;
+}
+
+#board-container button:hover {
+  width: 40%;
+}
+
+button:hover, input[type="radio"]:hover {
+  cursor: pointer;
+}
+
+button:hover {
+  border: solid 2px rgba(255, 255, 255);
+  border-top: solid 2px transparent;
+  border-left: solid 2px transparent;
+  border-right: solid 2px transparent;
+  width: 20%;
+}
+
+.box:hover {
+  cursor: pointer;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}

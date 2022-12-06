@@ -1,0 +1,12 @@
+/* FONT RULES*/
+html, input, button {
+  font-family: 'Fredericka the Great', cursive;
+}
+
+#victory-message, .box {
+  font-size: 5rem;
+}
+
+button {
+  font-size: 2rem;
+}

@@ -1,0 +1,33 @@
+@import "meta.css";
+@import "display.css";
+@import "fonts.css";
+@import "colors.css";
+@import "borders.css";
+@import "animations.css";
+@import "inputs.css";
+@import "buttons.css";
+@import "forms.css";
+
+
+#title {
+  width: 100%;
+}
+
+.break {
+  height: 0;
+}
+
+#board-display {
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  height: 300px;
+  width: 300px;
+}
+
+.box {
+  height: 100px;
+  width: 100px;
+  padding-bottom: 20%;
+}
+
+

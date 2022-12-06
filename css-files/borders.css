@@ -1,0 +1,16 @@
+/* BORDER RULES */
+* {
+  box-sizing: border-box;
+}
+
+.box {
+  border: solid 3px rgba(255, 255, 255, 0.85);
+}
+
+button, input[type="text"] {
+  border: none;
+}
+
+input[type="text"], input[type="radio"] {
+  border-bottom: solid 2px white;
+}

@@ -1,0 +1,36 @@
+/* DISPLAY AND ALIGNMENT RULES */
+body, #title, #board-container .box, form, #players {
+  display: flex;
+}
+
+#board-container, #victory-message {
+  display: none;
+}
+
+#victory-message {
+  text-align: center;
+}
+
+.player, #board-display {
+  display: grid;
+}
+
+body {
+  flex-direction: column;
+}
+
+form, #board-container {
+  flex-wrap: wrap;
+}
+
+body, #title, #board-container, #victory-message, .box, form, #players {
+  justify-content: center;
+}
+
+#victory-message, .box {
+  align-items: center;
+}
+
+.break {
+  flex-basis: 100%;
+}

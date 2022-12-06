@@ -1,0 +1,12 @@
+/* RULES FOR BUTTONS */
+
+button {
+  appearance: none;
+  width: min-content;
+  height: 3rem;
+}
+
+#board-container button {
+  width: max-content;
+  margin-top: 5px;
+}
